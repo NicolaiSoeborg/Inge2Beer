@@ -25,7 +25,7 @@ copyfile("%s/template.db" % homedir, db_filename)
 database = sqlite3.connect(db_filename)
 db_cur   = database.cursor()
 
-wb = xlrd.open_workbook(wb_filename, encoding_override='cp865') # TODO: cp865 isn't the correct encoding...
+wb = xlrd.open_workbook(wb_filename, encoding_override='cp1252')
 assert(wb.nsheets == 1)
 assert(wb.sheet_names() == ['Russere A5 papirer'])
 
