@@ -15,9 +15,9 @@
 <body>
   <p>On this website you can upload the <i>rus list</i> you got from Inge
   and get a database and barcode list back.</p>
-  <form action="http://inge2db.pf.dk/upload.php" method="post">
+  <form action="upload.php" method="post" enctype="multipart/form-data">
     Select rusliste: 
-    <input type="file" name="rusliste">
+    <input type="file" name="rusliste" accept=".xls">
     <input type="submit" value="Go!">
   </form>
 </body>
