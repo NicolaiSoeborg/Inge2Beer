@@ -14,14 +14,12 @@ if not os.path.isfile(wb_filename):
 	print("Can't find file '%s'." % wb_filename)
 	exit(0)
 
-newfile = "/tmp/%s.db" % wb_filename.replace(".xls", "")
+newfile = "%s.db" % wb_filename.replace(".xls", "")
 if os.path.isfile(newfile):
 	print("Something went wrong!")
 	exit(0)
 
 copyfile("./template.db", newfile)
-
-ValueError
 
 database = sqlite3.connect(newfile)
 db_cur   = database.cursor()
