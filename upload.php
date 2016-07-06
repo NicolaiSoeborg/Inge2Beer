@@ -14,9 +14,9 @@ if ((!empty($_FILES["rusliste"])) && ($_FILES["rusliste"]['error'] == 0)) {
         //Attempt to move the uploaded file to it's new place
         if ((move_uploaded_file($_FILES["rusliste"]['tmp_name'], $newname))) {
            exec("/tmp/Inge2Beer/inge2beer.py ".$newname);
-           //exec("cd '/tmp/Inge2Beer/' && latex -interaction=batchmode ".$newname.".tex");
-           //exec("cd '/tmp/Inge2Beer/' && dvips ".$newname.".dvi");
-           //exec("cd '/tmp/Inge2Beer/' && ps2pdf ".$newname.".ps");
+           exec("cd \"/tmp/uploads/\" && /usr/bin/latex -interaction=batchmode \"".$newname.".tex\" 2> /dev/null");
+           exec("cd \"/tmp/uploads/\" && /usr/bin/dvips \"".$newname.".dvi\" 2> /dev/null");
+           exec("cd \"/tmp/uploads/\" && /usr/bin/ps2pdf \"".$newname.".ps\" 2> /dev/null");
 
            exec("zip -j ".$newname.".zip ".$newname.".*");
            $newname .= ".zip";
