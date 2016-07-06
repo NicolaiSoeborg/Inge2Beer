@@ -1,8 +1,16 @@
-Inge2db
-=======
+Inge2Beer
+=========
 
-This is a small project to convert ''Inge russer lists'' to a beer program database format,
-and creating barcodes for each ''russer''.
+This repo is a collection of scripts and files used to convert ''russer lists'' from ''PF Inge'' to a list of barcodes and a database file used by the beer program `OLP.jar` and `02350-Projekt`.
+
+# Dependencies
+
+|    Feature   	|      Dependency     	|
+|:------------:	|:-------------------:	|
+|  inge2db.py  	|       Python3       	|
+|   Read xls   	|         xlrd        	|
+| Barcodes.pdf 	| LaTeX & pst-barcode 	|
+|    Website	|     PHP + nginx  	|
 
 
 # License

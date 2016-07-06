@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage{pst-barcode}
+
+\usepackage{framed}
+\usepackage{multicol}
+
+\title{Inge2Beer: Barcodes}
+\author{Nicolai Søborg}
+\date{July 2016}
+
+\begin{document}
+
+\begin{multicols}{3}
+
+\begin{framed}
+Nicolai Søborg \\
+\begin{pspicture}(0,-8pt)(1.5in,1in)
+\psbarcode{1337}{includetext width=1.6 height=1}{code39}
+\end{pspicture}
+\end{framed}
+
+
+\end{multicols}
+
+\end{document}
