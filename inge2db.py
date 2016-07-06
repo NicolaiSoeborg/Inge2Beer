@@ -1,49 +1,58 @@
 #!/usr/bin/env python3
 
 from shutil import copyfile
-from uuid import uuid4
+import sys, os
 import sqlite3
 import xlrd
 
-rndfile = "/tmp/%s.db" % uuid4()
-copyfile("./template.db", rndfile)
+if len(sys.argv) != 2:
+	print("Usage %s ruslist.xls" % sys.argv[0])
+	exit(0)
 
-wb_filename = "filename.xls"
+wb_filename = sys.argv[1]
+if not os.path.isfile(wb_filename):
+	print("Can't find file '%s'." % wb_filename)
+	exit(0)
 
-try:
-	database = sqlite3.connect(rndfile)
-	db_cur   = database.cursor()
+newfile = "/tmp/%s.db" % wb_filename.replace(".xls", "")
+if os.path.isfile(newfile):
+	print("Something went wrong!")
+	exit(0)
 
-	wb = xlrd.open_workbook(wb_filename, encoding_override='cp865')
-	assert(wb.nsheets == 1)
-	assert(wb.sheet_names() == ['Russere A5 papirer'])
+copyfile("./template.db", newfile)
 
-	sh = wb.sheet_by_index(0)
-	for rowX in range(sh.nrows):
-		studyno    = sh.cell_value(rowX, 0)
-		study      = "%s. %s" % (sh.cell_value(rowX, 1), sh.cell_value(rowX, 2))
+ValueError
 
-		first_name = sh.cell_value(rowX, 5)
-		last_name  = sh.cell_value(rowX, 6)
-		name       = "%s %s" % (first_name, last_name)
+database = sqlite3.connect(newfile)
+db_cur   = database.cursor()
 
-		id         = rowX + 1
-		barcode    = 1000 + rowX
+wb = xlrd.open_workbook(wb_filename, encoding_override='cp865')
+assert(wb.nsheets == 1)
+assert(wb.sheet_names() == ['Russere A5 papirer'])
 
-		sql = ("INSERT INTO USERS (ID, NAME, STUDYNUMBER, BARCODE, STUDY, TEAM,      RANK,  BEER, CIDER, SODA, COCOA, OTHER)"
-		       " VALUES           (?,  ?,    ?,           ?,       ?,     'No Team', 'Rus', 0,    0,     0,    0,     0);")
+sh = wb.sheet_by_index(0)
+for rowX in range(sh.nrows):
+	studyno    = rowX
+	try:
+		studyno = int(sh.cell_value(rowX, 0))
+	except ValueError:
+		pass
 
-		db_cur.execute(sql, (id, name, studyno, barcode, study))
+	study      = "%s. %s" % (sh.cell_value(rowX, 1), sh.cell_value(rowX, 2))
 
-	database.commit()
-	database.close()
+	first_name = sh.cell_value(rowX, 5)
+	last_name  = sh.cell_value(rowX, 6)
+	name       = "%s %s" % (first_name, last_name)
 
-except:
-	print ("Unexpected error: %s" % sys.exc_info()[0])
+	id         = rowX + 1
+	barcode    = 1000 + rowX
 
-# todos:
-#	webpage (get wb_filename)
-#	webpage (return rndfile)
-#	Delete wb_filename
-#	Delete rndfile
-#	Log exceptions
+	sql = ("INSERT INTO USERS (ID, NAME, STUDYNUMBER, BARCODE, STUDY, TEAM,      RANK,  BEER, CIDER, SODA, COCOA, OTHER)"
+	       " VALUES           (?,  ?,    ?,           ?,       ?,     'No Team', 'Rus', 0,    0,     0,    0,     0);")
+
+	db_cur.execute(sql, (id, name, studyno, barcode, study))
+
+database.commit()
+database.close()
+
+os.remove(wb_filename) # delete workbook
