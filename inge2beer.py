@@ -14,16 +14,20 @@ if not os.path.isfile(wb_filename):
 	print("Can't find file '%s'." % wb_filename)
 	exit(0)
 
-db_filename = "%s.db" % wb_filename
-if os.path.isfile(db_filename):
+db_olp_filename = "%s.db" % wb_filename
+db_02350_filename = "%s.sqlite3" % wb_filename
+if os.path.isfile(db_olp_filename) or os.path.isfile(db_02350_filename):
 	print("Something went wrong!")
 	exit(0)
 
 homedir = os.path.dirname(sys.argv[0])
-copyfile("%s/template.db" % homedir, db_filename)
+copyfile("%s/template.db" % homedir, db_olp_filename)
+copyfile("%s/template.sqlite3" % homedir, db_02350_filename)
 
-database = sqlite3.connect(db_filename)
-db_cur   = database.cursor()
+db_olp = sqlite3.connect(db_olp_filename)
+db_02350 = sqlite3.connect(db_02350_filename)
+db_olp_cur = db_olp.cursor()
+db_02350_cur = db_olp.cursor()
 
 wb = xlrd.open_workbook(wb_filename, encoding_override='cp1252')
 assert(wb.nsheets == 1)
@@ -48,14 +52,22 @@ for rowX in range(sh.nrows):
 	id         = rowX + 1
 	barcode    = 1000 + rowX
 
-	sql = ("INSERT INTO USERS (ID, NAME, STUDYNUMBER, BARCODE, STUDY, TEAM,      RANK,  BEER, CIDER, SODA, COCOA, OTHER)"
-	       " VALUES           (?,  ?,    ?,           ?,       ?,     'No Team', 'Rus', 0,    0,     0,    0,     0);")
+	sql_olp = ("INSERT INTO USERS (ID, NAME, STUDYNUMBER, BARCODE, STUDY, TEAM,      RANK,  BEER, CIDER, SODA, COCOA, OTHER)"
+	           " VALUES           (?,  ?,    ?,           ?,       ?,     'No Team', 'Rus', 0,    0,     0,    0,     0);")
 
-	db_cur.execute(sql, (id, name, studyno, barcode, study))
+	sql_02350 = ("INSERT INTO users (studentID, studentName, team,      rank)"
+	             " VALUES           (?,         ?,           'No Team', 1);")
+
+
+	db_olp_cur.execute(sql, (id, name, studyno, barcode, study))
+	db_02350_cur.execute(sql, (barcode, name))
+
 	barcodes.append((name, barcode))
 
-database.commit()
-database.close()
+db_olp.commit()
+db_02350.commit()
+db_olp.close()
+db_02350.close()
 
 pdf_header = r"""\documentclass{article}
 \usepackage[utf8]{inputenc}
