@@ -8,3 +8,12 @@ python:
   - "nightly" # currently points to 3.6-dev
 
 install: "pip install -r requirements.txt"
+
+before_script:
+  - apt-get -y install texlive-latex-base
+  - apt-get -y install texlive-pstricks
+
+script:
+  - /usr/bin/latex -interaction=batchmode barcodes.tex
+  - /usr/bin/dvips barcodes.dvi
+  - /usr/bin/ps2pdf barcodes.ps
