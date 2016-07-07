@@ -16,6 +16,7 @@ before_script:
   - sudo apt-get -y install texlive-pstricks
 
 script:
-  - latex -interaction=batchmode barcodes.tex
-  - dvips barcodes.dvi
-  - ps2pdf barcodes.ps
+  - python3 -m compileall . # check syntax errors
+#  - latex -interaction=batchmode barcodes.tex
+#  - dvips barcodes.dvi
+#  - ps2pdf barcodes.ps
