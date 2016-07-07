@@ -69,20 +69,24 @@ db_02350.commit()
 db_olp.close()
 db_02350.close()
 
+
+
+
 pdf_header = r"""\documentclass{article}
 \usepackage[utf8]{inputenc}
+\usepackage{fontspec}
 \usepackage{fullpage,multicol}
-\usepackage{pst-barcode}
-\usepackage{framed}
+\usepackage{pst-barcode,framed}
 
 \title{Inge2Beer: Barcodes}
-\author{Nicolai Soeborg}
+\author{Nicolai Søborg}
 \date{July 2016}
 
 \begin{document}
 \begin{multicols}{3}"""
 
 pdf_body = r"""\begin{framed}
+\centering
 NAME_TOKEN \\
 \begin{pspicture}(0,-8pt)(1.5in,1in)
 \psbarcode{BARCODE_TOKEN}{includetext width=1.6 height=1}{code39}
