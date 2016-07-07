@@ -16,6 +16,4 @@ before_script:
   - sudo apt-get -y install texlive-pstricks
 
 script:
-  - /usr/bin/latex -interaction=batchmode barcodes.tex
-  - /usr/bin/dvips barcodes.dvi
-  - /usr/bin/ps2pdf barcodes.ps
+  - sudo whoami
