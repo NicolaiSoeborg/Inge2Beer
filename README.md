@@ -6,7 +6,9 @@ Inge2Beer
 [![Beerpay](https://beerpay.io/NicolaiSoeborg/Inge2Beer/badge.svg?style=flat)](https://beerpay.io/NicolaiSoeborg/Inge2Beer)
 [![license](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE)
 
-This repo is a collection of scripts and files used to convert *russer lists* from PF Inge (<3) to a list of barcodes and a database file used by the beer program `OLP.jar` and `02350-Projekt`.
+This repo is a collection of scripts and files used to convert *russer lists* from PF Inge to a list of barcodes and a database file used by the beer program `OLP.jar` and `02350-Projekt`.
+
+[**This service is hosted online**](https://nicolaisoeborg.github.io/Inge2Beer/).
 
 # Dependencies
 
@@ -19,4 +21,4 @@ This repo is a collection of scripts and files used to convert *russer lists* fr
 
 
 # License
-MIT
+[MIT](/LICENSE)
