@@ -2,11 +2,11 @@ Inge2Beer
 =========
 
 [![Build status](https://img.shields.io/travis/NicolaiSoeborg/Inge2Beer/master.svg?label=Build)](https://travis-ci.org/NicolaiSoeborg/Inge2Beer)
-[![GitHub issues](https://img.shields.io/github/issues/NicolaiSoeborg/Inge2Beer.svg)](issues)
+[![GitHub issues](https://img.shields.io/github/issues/NicolaiSoeborg/Inge2Beer.svg)](/issues)
 [![Beerpay](https://beerpay.io/NicolaiSoeborg/Inge2Beer/badge.svg?style=flat)](https://beerpay.io/NicolaiSoeborg/Inge2Beer)
-[![license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![license](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE)
 
-This repo is a collection of scripts and files used to convert ''russer lists'' from ''PF Inge'' to a list of barcodes and a database file used by the beer program `OLP.jar` and `02350-Projekt`.
+This repo is a collection of scripts and files used to convert *russer lists* from PF Inge (<3) to a list of barcodes and a database file used by the beer program `OLP.jar` and `02350-Projekt`.
 
 # Dependencies
 
@@ -20,8 +20,3 @@ This repo is a collection of scripts and files used to convert ''russer lists'' 
 
 # License
 MIT
-
-## Support on Beerpay
-Hey dude! Help me out for a couple of :beers:!
-
-[![Beerpay](https://beerpay.io/NicolaiSoeborg/Inge2Beer/badge.svg?style=beer-square)](https://beerpay.io/NicolaiSoeborg/Inge2Beer)  [![Beerpay](https://beerpay.io/NicolaiSoeborg/Inge2Beer/make-wish.svg?style=flat-square)](https://beerpay.io/NicolaiSoeborg/Inge2Beer?focus=wish)
