@@ -20,3 +20,8 @@ This repo is a collection of scripts and files used to convert ''russer lists'' 
 
 # License
 MIT
+
+## Support on Beerpay
+Hey dude! Help me out for a couple of :beers:!
+
+[![Beerpay](https://beerpay.io/NicolaiSoeborg/Inge2Beer/badge.svg?style=beer-square)](https://beerpay.io/NicolaiSoeborg/Inge2Beer)  [![Beerpay](https://beerpay.io/NicolaiSoeborg/Inge2Beer/make-wish.svg?style=flat-square)](https://beerpay.io/NicolaiSoeborg/Inge2Beer?focus=wish)
