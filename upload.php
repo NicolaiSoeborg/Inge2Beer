@@ -17,8 +17,11 @@ if ((!empty($_FILES["rusliste"])) && ($_FILES["rusliste"]['error'] == 0)) {
            exec("cd \"/tmp/uploads/\" && /usr/bin/latex -interaction=batchmode \"".$newname.".tex\" 2> /dev/null");
            exec("cd \"/tmp/uploads/\" && /usr/bin/dvips \"".$newname.".dvi\" 2> /dev/null");
            exec("cd \"/tmp/uploads/\" && /usr/bin/ps2pdf \"".$newname.".ps\" 2> /dev/null");
-
-           exec("zip -j ".$newname.".zip ".$newname.".*");
+           exec("cd \"/tmp/uploads/\" && rm \"".$newname.".aux\"");
+           exec("cd \"/tmp/uploads/\" && rm \"".$newname.".dvi\"");
+           exec("cd \"/tmp/uploads/\" && rm \"".$newname.".log\"");
+           exec("cd \"/tmp/uploads/\" && rm \"".$newname.".ps\"");
+           exec("zip -j ".$newname.".zip ".$newname.".* /tmp/Inge2Beer/readme.txt");
            $newname .= ".zip";
            header('Content-Type: application/octet-stream');
            header('Content-Disposition: attachment; filename="beer.zip"');
