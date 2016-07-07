@@ -73,8 +73,8 @@ db_02350.close()
 
 
 pdf_header = r"""\documentclass{article}
-%\usepackage[utf8]{inputenc}
-\usepackage{fontspec}
+\usepackage[utf8]{inputenc} % if not using XeLaTeX
+%\usepackage{fontspec} % if using XeLaTex
 \usepackage{fullpage,multicol}
 \usepackage{pst-barcode,framed}
 
