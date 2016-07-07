@@ -14,7 +14,6 @@ install: "pip install -r requirements.txt"
 before_script:
   - sudo apt-get -y install texlive-latex-base
   - sudo apt-get -y install texlive-pstricks
-  - sudo apt-get -y install xelatex
 
 script:
   - python3 -m compileall . # check syntax errors
