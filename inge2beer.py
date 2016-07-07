@@ -20,14 +20,14 @@ if os.path.isfile(db_olp_filename) or os.path.isfile(db_02350_filename):
 	print("Something went wrong!")
 	exit(0)
 
-homedir = os.path.dirname(sys.argv[0])
+homedir = os.path.dirname(sys.argv[0]) or "."
 copyfile("%s/template.db" % homedir, db_olp_filename)
 copyfile("%s/template.sqlite3" % homedir, db_02350_filename)
 
 db_olp = sqlite3.connect(db_olp_filename)
 db_02350 = sqlite3.connect(db_02350_filename)
 db_olp_cur = db_olp.cursor()
-db_02350_cur = db_olp.cursor()
+db_02350_cur = db_02350.cursor()
 
 wb = xlrd.open_workbook(wb_filename, encoding_override='cp1252')
 assert(wb.nsheets == 1)
@@ -59,8 +59,8 @@ for rowX in range(sh.nrows):
 	             " VALUES           (?,         ?,           'No Team', 1);")
 
 
-	db_olp_cur.execute(sql, (id, name, studyno, barcode, study))
-	db_02350_cur.execute(sql, (barcode, name))
+	db_olp_cur.execute(sql_olp, (id, name, studyno, barcode, study))
+	db_02350_cur.execute(sql_02350, (str(barcode), name))
 
 	barcodes.append((name, barcode))
 
