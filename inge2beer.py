@@ -73,7 +73,7 @@ db_02350.close()
 
 
 pdf_header = r"""\documentclass{article}
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}
 \usepackage{fontspec}
 \usepackage{fullpage,multicol}
 \usepackage{pst-barcode,framed}
