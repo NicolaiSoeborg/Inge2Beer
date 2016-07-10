@@ -14,11 +14,11 @@ install: "pip install -r requirements.txt"
 before_script:
   - sudo apt-get -y install texlive-latex-base
   - sudo apt-get -y install texlive-pstricks
-  - sudo apt-get -y install texlive-xetex
+#  - sudo apt-get -y install texlive-xetex
 
 script:
-  - python3 -m compileall . # check syntax errors
-  - xelatex -interaction=batchmode barcodes.tex
-#  - latex -interaction=batchmode barcodes.tex
-#  - dvips barcodes.dvi
-#  - ps2pdf barcodes.ps
+  - python3 -m compileall *.py # check syntax errors for python
+  - latex -interaction=nonstopmode barcodes.tex
+  - dvips barcodes.dvi
+  - ps2pdf barcodes.ps
+#  - xelatex -interaction=batchmode barcodes.tex

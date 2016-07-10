@@ -10,6 +10,12 @@ This repo is a collection of scripts and files used to convert *russer lists* fr
 
 [**This service is hosted online**](https://pf.soeborg.me/).
 
+
+# Todo
+ - Check that barcodes works
+ - Add webconfig to `gh-pages` branch
+
+
 # Dependencies
 
 |    Feature   	|      Dependency     	|

@@ -14,20 +14,21 @@ if not os.path.isfile(wb_filename):
 	print("Can't find file '%s'." % wb_filename)
 	exit(0)
 
-db_olp_filename = "%s.db" % wb_filename
-db_02350_filename = "%s.sqlite3" % wb_filename
-if os.path.isfile(db_olp_filename) or os.path.isfile(db_02350_filename):
-	print("Something went wrong!")
-	exit(0)
+dbs = { 'OLP':   {'file': "%s.db" % wb_filename},
+	'02350': {'file': "%s.sqlite3" % wb_filename}}
+for db in dbs:
+	if os.path.isfile(dbs[db]['file']):
+		print("Error '%s' already exists!" % db['file'])
+		exit(0)
 
 homedir = os.path.dirname(sys.argv[0]) or "."
-copyfile("%s/template.db" % homedir, db_olp_filename)
-copyfile("%s/template.sqlite3" % homedir, db_02350_filename)
+copyfile("%s/template.db" % homedir, dbs['OLP']['file'])
+copyfile("%s/template.sqlite3" % homedir, dbs['02350']['file'])
 
-db_olp = sqlite3.connect(db_olp_filename)
-db_02350 = sqlite3.connect(db_02350_filename)
-db_olp_cur = db_olp.cursor()
-db_02350_cur = db_02350.cursor()
+dbs['OLP']['db'] = sqlite3.connect(dbs['OLP']['file'])
+dbs['OLP']['cur'] = dbs['OLP']['db'].cursor()
+dbs['02350']['db'] = sqlite3.connect(dbs['02350']['file'])
+dbs['02350']['cur'] = dbs['02350']['db'].cursor()
 
 wb = xlrd.open_workbook(wb_filename, encoding_override='cp1252')
 assert(wb.nsheets == 1)
@@ -58,17 +59,15 @@ for rowX in range(sh.nrows):
 	             " VALUES           (?,         ?,           'No Team', 1);")
 
 
-	db_olp_cur.execute(sql_olp, (id, name, studyno, barcode, study))
-	db_02350_cur.execute(sql_02350, (str(barcode), name))
+	dbs['OLP']['cur'].execute(sql_olp, (id, name, studyno, barcode, study))
+	dbs['02350']['cur'].execute(sql_02350, (str(barcode), name))
 
 	barcodes.append((name, barcode))
 
-db_olp.commit()
-db_02350.commit()
-db_olp.close()
-db_02350.close()
-
-
+dbs['OLP']['db'].commit()
+dbs['OLP']['db'].close()
+dbs['02350']['db'].commit()
+dbs['02350']['db'].close()
 
 
 pdf_header = r"""\documentclass{article}
