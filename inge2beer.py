@@ -6,20 +6,17 @@ import sqlite3
 import xlrd
 
 if len(sys.argv) != 2:
-	print("Usage %s ruslist.xls" % sys.argv[0])
-	exit(0)
+	sys.exit("Usage %s ruslist.xls" % sys.argv[0])
 
 wb_filename = sys.argv[1]
 if not os.path.isfile(wb_filename):
-	print("Can't find file '%s'." % wb_filename)
-	exit(0)
+	sys.exit("Can't find file '%s'." % wb_filename)
 
 dbs = { 'OLP':   {'file': "%s.db" % wb_filename},
 	'02350': {'file': "%s.sqlite3" % wb_filename}}
 for db in dbs:
 	if os.path.isfile(dbs[db]['file']):
-		print("Error '%s' already exists!" % db['file'])
-		exit(0)
+		sys.exit("Error '%s' already exists!" % db['file'])
 
 homedir = os.path.dirname(sys.argv[0]) or "."
 copyfile("%s/template.db" % homedir, dbs['OLP']['file'])
@@ -100,8 +97,7 @@ pdf_footer = r"""\end{multicols}
 
 tex_filename = "%s.tex" % wb_filename
 if os.path.isfile(tex_filename):
-	print("Something went wrong!")
-	exit(0)
+	sys.exit("Error: File '%s' already exists!" % tex_filename)
 
 with open(tex_filename, mode='w', encoding='utf-8') as f:
 	f.write(pdf_header + "\n")
