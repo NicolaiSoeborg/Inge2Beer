@@ -37,11 +37,10 @@ barcodes = []
 
 sh = wb.sheet_by_index(0)
 for rowX in range(sh.nrows):
-	studyno    = rowX
 	try:
 		studyno = int(sh.cell_value(rowX, 0))
 	except ValueError:
-		pass
+		studyno = rowX
 
 	study      = "%s. %s" % (sh.cell_value(rowX, 1), sh.cell_value(rowX, 2))
 
@@ -73,8 +72,12 @@ db_02350.close()
 
 
 pdf_header = r"""\documentclass{article}
-\usepackage[utf8]{inputenc} % if not using XeLaTeX
-%\usepackage{fontspec} % if using XeLaTex
+\usepackage{ifxetex}
+\ifxetex
+   \usepackage{fontspec}
+\else
+   \usepackage[utf8]{inputenc}
+\fi
 \usepackage{fullpage,multicol}
 \usepackage{pst-barcode,framed}
 
@@ -104,5 +107,6 @@ if os.path.isfile(tex_filename):
 with open(tex_filename, mode='w', encoding='utf-8') as f:
 	f.write(pdf_header + "\n")
 	for (name, barcode) in barcodes:
-		f.write( pdf_body.replace("BARCODE_TOKEN", str(barcode)).replace("NAME_TOKEN", name) + "\n")
+		body = pdf_body.replace("BARCODE_TOKEN", str(barcode)).replace("NAME_TOKEN", name.replace("\\", ""))
+		f.write( body + "\n")
 	f.write(pdf_footer)
