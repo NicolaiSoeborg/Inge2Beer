@@ -21,7 +21,16 @@ if ((!empty($_FILES["rusliste"])) && ($_FILES["rusliste"]['error'] == 0)) {
            exec("cd \"/tmp/uploads/\" && rm \"".$newname.".dvi\"");
            exec("cd \"/tmp/uploads/\" && rm \"".$newname.".log\"");
            exec("cd \"/tmp/uploads/\" && rm \"".$newname.".ps\"");
-           exec("zip -j ".$newname.".zip ".$newname.".* /tmp/Inge2Beer/readme.txt");
+           $z = new ZipArchive();
+           if (!$z->open($newname.".zip", ZipArchive::CREATE))
+             die("Can't create zip file.");
+           $z->addFile("/tmp/Inge2Beer/templates/readme.txt", "README.txt");
+           $z->addFile($newname.".pdf", "Barcodes.pdf");
+           $z->addFile($newname.".tex", "Barcodes.tex");
+           $z->addFile($newname.".db", "Beer.db");
+           $z->addFile($newname.".sqlite3", "TEST-02350.sqlite3");
+           $z->setArchiveComment("File generated ".date("Y-m-d H:i:s"));
+           $z->close();
            $newname .= ".zip";
            header('Content-Type: application/octet-stream');
            header('Content-Disposition: attachment; filename="beer.zip"');
@@ -32,13 +41,13 @@ if ((!empty($_FILES["rusliste"])) && ($_FILES["rusliste"]['error'] == 0)) {
            unlink($newname);
            exit;
         } else {
-           echo "Error: A problem occurred during file upload!";
+           die("Error: A problem occurred during file upload!");
         }
       }
   } else {
-     echo "Error: Only .xls files under 15 MiB are accepted for upload.";
+     die("Error: Only .xls files under 15 MiB are accepted for upload.");
   }
 } else {
- echo "Error: No file uploaded.";
+ die("Error: No file uploaded.");
 }
 ?>
