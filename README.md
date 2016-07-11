@@ -8,11 +8,10 @@ Inge2Beer
 
 This repo is a collection of scripts and files used to convert *russer lists* from PF Inge to a list of barcodes and a database file used by the beer program `OLP.jar` and `02350-Projekt`.
 
-[**This service is hosted online**](https://pf.soeborg.me/).
+[**This service is hosted online**](https://inge.soeborg.me/).
 
 
 # Todo
- - Check that barcodes works
  - Add webconfig to `gh-pages` branch
 
 

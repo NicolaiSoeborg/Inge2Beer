@@ -1,18 +1,19 @@
 This zip contains the following files:
 
- * [longname].db  - OLP.jar database
- * [longname].pdf - barcodes pdf
- * [longname].tex - barcodes LaTeX file
-(* [longname].sqlite3 - "02350-Projekt" database)
+ * Barcodes.pdf - barcodes pdf
+ * Barcodes.tex - barcodes LaTeX file
+ * Beer.db  - OLP.jar database
+(* TEST-02350.sqlite3 - "02350-Projekt" database)
 
 This service is new. Expect bugs.
 
 If you want to change in the barcodes, edit the .tex file
 and recompile using XeLaTeX or run the following commands:
- * latex [longname].tex
- * dvips [longname].dvi
- * ps2pdf [longname].ps
+ * latex Barcodes.tex
+ * dvips Barcodes.dvi
+ * ps2pdf Barcodes.ps
 
+You'll need the `pst-barcode` and `pstricks` package for LaTeX.
 
 For more info:
   https://github.com/NicolaiSoeborg/Inge2Beer
