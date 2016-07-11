@@ -19,8 +19,8 @@ for db in dbs:
 		sys.exit("Error '%s' already exists!" % db['file'])
 
 homedir = os.path.dirname(sys.argv[0]) or "."
-copyfile("%s/template.db" % homedir, dbs['OLP']['file'])
-copyfile("%s/template.sqlite3" % homedir, dbs['02350']['file'])
+copyfile("%s/templates/OLP.db" % homedir, dbs['OLP']['file'])
+copyfile("%s/templates/02350.sqlite3" % homedir, dbs['02350']['file'])
 
 dbs['OLP']['db'] = sqlite3.connect(dbs['OLP']['file'])
 dbs['OLP']['cur'] = dbs['OLP']['db'].cursor()

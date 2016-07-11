@@ -19,7 +19,7 @@ before_script:
 
 script:
   - python3 -m compileall *.py # check syntax errors for python
-  - latex -interaction=nonstopmode barcodes.tex
+  - latex -interaction=nonstopmode templates/barcodes.tex
   - dvips barcodes.dvi
   - ps2pdf barcodes.ps
-#  - xelatex -interaction=batchmode barcodes.tex
+#  - xelatex -interaction=batchmode templates/barcodes.tex

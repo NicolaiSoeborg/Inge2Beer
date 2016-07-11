@@ -9,4 +9,3 @@ This service is new. Expect bugs.
 
 For more info:
   https://github.com/NicolaiSoeborg/Inge2Beer
-  https://pf.soeborg.me/
