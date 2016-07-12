@@ -2,6 +2,7 @@ Inge2Beer
 =========
 
 [![Build status](https://img.shields.io/travis/NicolaiSoeborg/Inge2Beer/master.svg?label=Build)](https://travis-ci.org/NicolaiSoeborg/Inge2Beer)
+[![Dependency Status](https://dependencyci.com/github/NicolaiSoeborg/Inge2Beer/badge)](https://dependencyci.com/github/NicolaiSoeborg/Inge2Beer)
 [![GitHub issues](https://img.shields.io/github/issues/NicolaiSoeborg/Inge2Beer.svg)](/issues)
 [![Beerpay](https://beerpay.io/NicolaiSoeborg/Inge2Beer/badge.svg?style=flat)](https://beerpay.io/NicolaiSoeborg/Inge2Beer)
 [![license](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE)
