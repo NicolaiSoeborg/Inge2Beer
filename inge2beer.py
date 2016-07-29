@@ -101,7 +101,8 @@ if os.path.isfile(tex_filename):
 
 with open(tex_filename, mode='w', encoding='utf-8') as f:
 	f.write(pdf_header + "\n")
-	for (name, barcode) in barcodes:
+	for i, (name, barcode) in enumerate(barcodes):
 		body = pdf_body.replace("BARCODE_TOKEN", str(barcode)).replace("NAME_TOKEN", name.replace("\\", ""))
+		if i > 0 and i % 14 == 0: body += "\n\clearpage"
 		f.write( body + "\n")
 	f.write(pdf_footer)
