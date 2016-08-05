@@ -4,6 +4,7 @@ from shutil import copyfile
 import sys, os
 import sqlite3
 import xlrd
+import random, string # for gen seeds
 
 if len(sys.argv) != 2:
 	sys.exit("Usage %s ruslist.xls" % sys.argv[0])
@@ -87,13 +88,14 @@ pdf_header = r"""\documentclass{article}
 \begin{document}
 \begin{multicols}{3}"""
 
+seed = ''.join(random.choice(string.ascii_letters) for _ in range(32))
 pdf_body = r"""\begin{framed}
 \centering
 NAME_TOKEN \\
 \begin{pspicture}(0,-8pt)(1.5in,1in)
 \psbarcode{BARCODE_TOKEN}{includetext width=1.6 height=1}{code39}
 \end{pspicture}
-\end{framed}"""
+\end{framed}""".replace("NAME_TOKEN", seed)
 
 pdf_footer = r"""\end{multicols}
 \end{document}"""
@@ -105,7 +107,9 @@ if os.path.isfile(tex_filename):
 with open(tex_filename, mode='w', encoding='utf-8') as f:
 	f.write(pdf_header + "\n")
 	for i, (name, barcode) in enumerate(barcodes):
-		body = pdf_body.replace("BARCODE_TOKEN", str(barcode)).replace("NAME_TOKEN", name.replace("\\", ""))
-		if i > 0 and i % 14 == 0: body += "\n\clearpage"
+		body = pdf_body.replace("BARCODE_TOKEN", str(barcode))
+		body     = body.replace(seed, name.replace("\\", ""))
+		if i > 0 and i % 14 == 0:
+			body += "\n\clearpage" # try to fix LaTeX floats handling ...
 		f.write( body + "\n")
 	f.write(pdf_footer)
