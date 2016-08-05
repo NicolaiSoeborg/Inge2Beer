@@ -16,7 +16,7 @@ dbs = { 'OLP':   {'file': "%s.db" % wb_filename},
 	'02350': {'file': "%s.sqlite3" % wb_filename}}
 for db in dbs:
 	if os.path.isfile(dbs[db]['file']):
-		sys.exit("Error '%s' already exists!" % db['file'])
+		sys.exit("Error '%s' already exists!" % dbs[db]['file'])
 
 homedir = os.path.dirname(sys.argv[0]) or "."
 copyfile("%s/templates/OLP.db" % homedir, dbs['OLP']['file'])
@@ -27,14 +27,17 @@ dbs['OLP']['cur'] = dbs['OLP']['db'].cursor()
 dbs['02350']['db'] = sqlite3.connect(dbs['02350']['file'])
 dbs['02350']['cur'] = dbs['02350']['db'].cursor()
 
-wb = xlrd.open_workbook(wb_filename, encoding_override='cp1252')
+try:
+	wb = xlrd.open_workbook(wb_filename, encoding_override='cp1252')
+except xlrd.biffh.XLRDError:
+	wb = xlrd.open_workbook("sample.xls", encoding_override='cp1252')
 assert(wb.nsheets == 1)
 assert(wb.sheet_names() == ['Russere A5 papirer'])
 
 barcodes = []
 
-sh = wb.sheet_by_index(0)
-for rowX in range(sh.nrows):
+sh = wb.sheet_by_index(0) # sheet_by_name("Russere A5 papirer")
+for rowX in range(sh.nrows): # todo: catch IndexError
 	try:
 		studyno = int(sh.cell_value(rowX, 0))
 	except ValueError:
