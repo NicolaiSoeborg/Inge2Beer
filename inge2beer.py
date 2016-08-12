@@ -33,7 +33,7 @@ try:
 except xlrd.biffh.XLRDError:
 	wb = xlrd.open_workbook("sample.xls", encoding_override='cp1252')
 assert(wb.nsheets == 1)
-assert(wb.sheet_names() == ['Russere A5 papirer'])
+#assert(wb.sheet_names() == ['Russere A5 papirer'])
 
 barcodes = []
 
