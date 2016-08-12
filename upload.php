@@ -4,7 +4,7 @@ if ((!empty($_FILES["rusliste"])) && ($_FILES["rusliste"]['error'] == 0)) {
   $ext = substr($filename, strrpos($filename, '.') + 1);
 
   // Check file ext and size < 15 mb
-  if (($ext == "xls") && ($_FILES["rusliste"]["size"] < 15000000)) {
+  if (($ext == "xls" || $ext == "xlsx") && ($_FILES["rusliste"]["size"] < 15000000)) {
 
       if (!is_dir("/tmp/uploads")) mkdir("/tmp/uploads");
       // Warning: newname _MUST_ to be hashed to protect 'exec'-call below.
@@ -46,7 +46,7 @@ if ((!empty($_FILES["rusliste"])) && ($_FILES["rusliste"]['error'] == 0)) {
         }
       }
   } else {
-     die("Error: Only .xls files under 15 MiB are accepted for upload.");
+     die("Error: Only .xls or .xlsx files under 15 MiB are accepted for upload.");
   }
 } else {
  die("Error: No file uploaded.");
