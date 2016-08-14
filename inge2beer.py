@@ -2,9 +2,8 @@
 
 from shutil import copyfile
 import sys, os
-import sqlite3
-import xlrd
-import random, string # for gen seeds
+import sqlite3, xlrd
+import random, string
 
 if len(sys.argv) != 2:
 	sys.exit("Usage %s ruslist.xls" % sys.argv[0])
@@ -32,7 +31,7 @@ try:
 	wb = xlrd.open_workbook(wb_filename, encoding_override='cp1252')
 except xlrd.biffh.XLRDError:
 	wb = xlrd.open_workbook("sample.xls", encoding_override='cp1252')
-assert(wb.nsheets == 1)
+assert(wb.nsheets >= 1)
 #assert(wb.sheet_names() == ['Russere A5 papirer'])
 
 barcodes = []
@@ -44,17 +43,19 @@ for rowX in range(sh.nrows): # todo: catch IndexError
 	except ValueError:
 		studyno = rowX
 
-	study      = "%s. %s" % (sh.cell_value(rowX, 1), sh.cell_value(rowX, 2))
+	diplomOrCivil = sh.cell_value(rowX, 1) or "C"
+	study = "%s. %s" % (diplomOrCivil, sh.cell_value(rowX, 2))
 
 	first_name = sh.cell_value(rowX, 5)
 	last_name  = sh.cell_value(rowX, 6)
 	name       = "%s %s" % (first_name, last_name)
+	if last_name == "": name = first_name
 
 	id         = rowX + 1
 	barcode    = 1000 + rowX
 
 	sql_olp = ("INSERT INTO USERS (ID, NAME, STUDYNUMBER, BARCODE, STUDY, TEAM,      RANK,  BEER, CIDER, SODA, COCOA, OTHER)"
-	           " VALUES           (?,  ?,    ?,           ?,       ?,     'No Team', 'Rus', 0,    0,     0,    0,     0);")
+	           " VALUES           (?,  ?,    ?,           ?,       ?,     'No Team', 'RUS', 0,    0,     0,    0,     0);")
 
 	sql_02350 = ("INSERT INTO users (studentID, studentName, team,      rank)"
 	             " VALUES           (?,         ?,           'No Team', 1);")
@@ -64,6 +65,10 @@ for rowX in range(sh.nrows): # todo: catch IndexError
 	dbs['02350']['cur'].execute(sql_02350, (str(barcode), name))
 
 	barcodes.append((name, barcode))
+
+# Fix OLP
+for rank in ["KABS", "Vektor", "Hyttebums"]:
+	dbs['OLP']['cur'].execute("INSERT INTO USERS(ID, NAME, RANK, BARCODE, TEAM) VALUES((SELECT MAX(ID)+1 FROM USERS), \""+rank+"\", \""+rank+"\", (SELECT MAX(BARCODE)+1 FROM USERS), \""+rank+"\")")
 
 dbs['OLP']['db'].commit()
 dbs['OLP']['db'].close()
@@ -92,8 +97,8 @@ seed = ''.join(random.choice(string.ascii_letters) for _ in range(32))
 pdf_body = r"""\begin{framed}
 \centering
 NAME_TOKEN \\
-\begin{pspicture}(0,-8pt)(1.5in,1in)
-\psbarcode{BARCODE_TOKEN}{includetext width=1.6 height=1}{code39}
+\begin{pspicture}(0,-8pt)(1.5in,0.6in)
+\psbarcode{BARCODE_TOKEN}{includetext width=1.6 height=0.5}{code39}
 \end{pspicture}
 \end{framed}""".replace("NAME_TOKEN", seed)
 
