@@ -97,8 +97,8 @@ seed = ''.join(random.choice(string.ascii_letters) for _ in range(32))
 pdf_body = r"""\begin{framed}
 \centering
 NAME_TOKEN \\
-\begin{pspicture}(0,-8pt)(1.5in,0.6in)
-\psbarcode{BARCODE_TOKEN}{includetext width=1.6 height=0.5}{code39}
+\begin{pspicture}(0,-8pt)(1.2in,0.6in)
+\psbarcode{BARCODE_TOKEN}{includetext width=1.2 height=0.5}{code39}
 \end{pspicture}
 \end{framed}""".replace("NAME_TOKEN", seed)
 
@@ -114,7 +114,7 @@ with open(tex_filename, mode='w', encoding='utf-8') as f:
 	for i, (name, barcode) in enumerate(barcodes):
 		body = pdf_body.replace("BARCODE_TOKEN", str(barcode))
 		body     = body.replace(seed, name.replace("\\", ""))
-		if i > 0 and i % 14 == 0:
+		if i > 0 and i % 17 == 0:
 			body += "\n\clearpage" # try to fix LaTeX floats handling ...
 		f.write( body + "\n")
 	f.write(pdf_footer)
