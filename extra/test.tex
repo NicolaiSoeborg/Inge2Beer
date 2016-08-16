@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{ifxetex}
+\ifxetex
+   \usepackage{fontspec}
+\else
+   \usepackage[utf8]{inputenc}
+\fi
+\usepackage{fullpage,multicol}
+\usepackage{pst-barcode}
+
+\title{Inge2Beer: Barcodes}
+\author{Nicolai Søborg}
+\date{Aug 2016}
+
+\usepackage{forloop}
+\usepackage{expl3}[2012-07-08]
+\ExplSyntaxOn
+\cs_new_eq:NN \fpeval \fp_eval:n
+\ExplSyntaxOff
+
+\newcommand{\insertBarcode}[1]{%
+\begin{pspicture}(0,-8pt)(1.5in,0.6in)
+\psbarcode{1000}{includetext width=#1 height=0.5}{code39}
+\end{pspicture}
+}
+
+\begin{document}
+\begin{multicols}{2}
+
+\newcounter{amountCounter}
+\forloop{amountCounter}{1}{\value{amountCounter} < 20}{%
+    \insertBarcode{\fpeval{0.1 * \arabic{amountCounter}}}\\%
+}
+
+\end{multicols}
+\end{document}
