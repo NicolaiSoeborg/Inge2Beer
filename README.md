@@ -23,7 +23,7 @@ This repo is a collection of scripts and files used to convert *russer lists* fr
 |  inge2db.py  	|       Python3       	|
 |   Read xls   	|         xlrd        	|
 | Barcodes.pdf 	| LaTeX & pst-barcode 	|
-|    Website	| PHP + nginx + php7.0-zip 	|
+|    Website	| PHP + webserver + php-zip 	|
 
 
 # License
