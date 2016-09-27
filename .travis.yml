@@ -1,5 +1,5 @@
 sudo: required
-dist: trusty
+dist: xenial
 language: python
 python:
   - "3.2"
@@ -9,17 +9,17 @@ python:
   - "3.5-dev" # 3.5 development branch
   - "nightly" # currently points to 3.6-dev
 
-install: "pip install -r requirements.txt"
+install: "sudo pip3 install -r requirements.txt"
 
 before_script:
   - sudo apt-get -y install texlive-latex-base
   - sudo apt-get -y install texlive-pstricks
   - sudo apt-get -y install texlive-latex-extra --no-install-recommends
-#  - sudo apt-get -y install texlive-xetex
+# - sudo apt-get -y install texlive-xetex
 
 script:
   - python3 -m compileall *.py # check syntax errors for python
   - latex -interaction=nonstopmode templates/barcodes.tex
   - dvips barcodes.dvi
   - ps2pdf barcodes.ps
-#  - xelatex -interaction=batchmode templates/barcodes.tex
+# - xelatex -interaction=batchmode templates/barcodes.tex
